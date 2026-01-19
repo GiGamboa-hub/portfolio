@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Intelligent Workflow Builder – Case Study</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Case study: Intelligent Workflow Builder – an AI-assisted workflow design and automation experience." />
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --bg-alt: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #6366f1;
+      --accent-soft: #e0e7ff;
+      --border: #e5e7eb;
+      --code-bg: #111827;
+      --code-text: #e5e7eb;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
+      --shadow-subtle: 0 8px 24px rgba(15, 23, 42, 0.08);
+      --max-width: 960px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0, #f9fafb 40%, #f3f4f6 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav {
+      width: 100%;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-inner {
+      width: 100%;
+      max-width: var(--max-width);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(99, 102, 241, 0.08);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links a.primary-link {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 10px 30px rgba(79, 70, 229, 0.35);
+    }
+
+    .nav-links a.primary-link:hover {
+      background: #4f46e5;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 10px 20px 60px;
+    }
+
+    .content {
+      width: 100%;
+      max-width: var(--max-width);
+    }
+
+    .hero {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 28px;
+      padding: 32px 26px 30px;
+      margin-top: 10px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #3730a3;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .hero-tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #4f46e5;
+      box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.45);
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3vw, 2.6rem);
+      line-height: 1.1;
+      margin: 0 0 10px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 18px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #f3f4ff;
+    }
+
+    .hero-meta-label {
+      font-weight: 500;
+      color: #4b5563;
+    }
+
+    .hero-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .hero-pill {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: #4b5563;
+      background: rgba(249, 250, 251, 0.9);
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-left: 2px solid var(--accent);
+      padding-left: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 22px;
+      margin-bottom: 26px;
+    }
+
+    .card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      margin: 0 0 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .card h3 {
+      font-size: 0.95rem;
+      margin: 14px 0 6px;
+      color: #4b5563;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0 0 8px;
+    }
+
+    .card ul {
+      margin: 6px 0 0;
+      padding-left: 18px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .card li + li {
+      margin-top: 4px;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 0.8rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f3f4ff;
+      color: #4b5563;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      margin: 0 0 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-body {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+      gap: 18px;
+    }
+
+    .flow-steps {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .flow-steps li + li {
+      margin-top: 4px;
+    }
+
+    .callout {
+      border-radius: var(--radius-md);
+      background: #f9fafb;
+      border: 1px dashed rgba(148, 163, 184, 0.8);
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      color: #4b5563;
+    }
+
+    .code-block {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      margin-top: 8px;
+    }
+
+    .metrics-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .metric {
+      flex: 1 1 120px;
+      min-width: 120px;
+      border-radius: var(--radius-md);
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .metric-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .gallery-item {
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #eef2ff, #e0f2fe);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      color: #374151;
+    }
+
+    .gallery-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .footer {
+      width: 100%;
+      padding: 18px 20px 26px;
+      display: flex;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: var(--max-width);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .footer-inner a {
+      color: var(--muted);
+    }
+
+    @media (max-width: 840px) {
+      .hero {
+        padding: 24px 18px 22px;
+        border-radius: 22px;
+      }
+
+      .grid,
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .nav-inner {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .nav-links {
+        gap: 10px;
+      }
+
+      main {
+        padding: 6px 14px 40px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+      }
+
+      .hero-title {
+        font-size: 1.8rem;
+      }
+
+      .hero {
+        margin-top: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <!-- Top navigation: adjust links to match your portfolio -->
+    <header class="nav">
+      <div class="nav-inner">
+        <div class="nav-brand">Gabrielle Gamboa · Portfolio</div>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="projects.html">Projects</a>
+          <a href="README.html">About</a>
+          <a href="mailto:YOUR_EMAIL_HERE" class="primary-link">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article class="content">
+        <!-- Hero / summary -->
+        <section class="hero">
+          <div class="hero-tag">
+            <span class="hero-tag-dot"></span>
+            <span>Case Study · Intelligent Workflow Builder</span>
+          </div>
+          <h1 class="hero-title">Intelligent Workflow Builder</h1>
+          <p class="hero-subtitle">
+            Designing and implementing an AI‑assisted workflow builder that helps teams model complex processes,
+            validate logic, and ship reliable automation faster.
+          </p>
+
+          <div class="hero-meta">
+            <span><span class="hero-meta-label">Role</span> Full‑stack designer &amp; engineer</span>
+            <span><span class="hero-meta-label">Focus</span> Workflow UX, AI assistance, system design</span>
+            <span><span class="hero-meta-label">Stack</span> React, TypeScript/JS, Node, API, SQL</span>
+          </div>
+
+          <div class="hero-pill-row">
+            <div class="hero-pill">Multi‑step workflow modeling</div>
+            <div class="hero-pill">AI‑generated step suggestions</div>
+            <div class="hero-pill">Human‑in‑the‑loop validation</div>
+            <div class="hero-pill">Reusable components</div>
+            <div class="hero-pill">Data‑driven configuration</div>
+          </div>
+
+          <p class="hero-note">
+            This project is designed to mirror the kind of internal tools and workflow platforms used across modern
+            SaaS and enterprise products—industry‑agnostic, but deeply technical.
+          </p>
+        </section>
+
+        <!-- Problem & context -->
+        <section class="grid">
+          <section class="card">
+            <div class="section-label">Context</div>
+            <h2 class="section-title">Problem &amp; opportunity</h2>
+            <p class="section-body">
+              Teams often manage complex workflows—approvals, onboarding, incident response—using static documents or
+              brittle, hard‑coded logic. This makes it difficult to iterate, validate edge cases, or share a clear
+              mental model across engineering, product, and operations.
+            </p>
+            <p class="section-body">
+              The goal of the Intelligent Workflow Builder is to provide a visual, configurable way to define workflows,
+              while using AI to assist with step descriptions, validation rules, and potential failure paths—without
+              removing human control.
+            </p>
+            <h3>Objectives</h3>
+            <ul>
+              <li>Enable non‑engineers to model workflows in a structured, reusable way.</li>
+              <li>Use AI to suggest steps, guardrails, and improvements without auto‑deploying changes.</li>
+              <li>Expose a clear data model that engineering teams can integrate with downstream systems.</li>
+            </ul>
+          </section>
+
+          <aside class="card">
+            <h2>Users &amp; stakeholders</h2>
+            <h3>Primary users</h3>
+            <ul>
+              <li>Product managers defining feature workflows.</li>
+              <li>Operations teams modeling internal processes.</li>
+              <li>Engineers integrating workflows into services.</li>
+            </ul>
+            <h3>Stakeholders</h3>
+            <ul>
+              <li>Engineering leadership (reliability, maintainability).</li>
+              <li>Support teams (clarity of flows, fewer edge‑case tickets).</li>
+              <li>Compliance / risk (auditability of changes).</li>
+            </ul>
+            <h3>Key constraints</h3>
+            <div class="pill-list">
+              <span class="pill">Human‑in‑the‑loop AI</span>
+              <span class="pill">Versioning &amp; audit trail</span>
+              <span class="pill">Clear data contracts</span>
+              <span class="pill">Safe defaults</span>
+            </div>
+          </aside>
+        </section>
+
+        <!-- Workflow mapping & UX -->
+        <section class="card">
+          <div class="section-label">Workflow design</div>
+          <h2 class="section-title">Mapping the workflow builder experience</h2>
+          <p class="section-body">
+            The core experience centers around a canvas where users define a workflow as a series of steps, transitions,
+            and conditions. Each step can be configured with inputs, outputs, and optional AI‑assisted descriptions or
+            validation rules.
+          </p>
+
+          <div class="two-col">
+            <div>
+              <h3>Core flow</h3>
+              <ol class="flow-steps">
+                <li>Create a new workflow and define its purpose.</li>
+                <li>Add steps (e.g., “Intake”, “Review”, “Approval”, “Notify”).</li>
+                <li>Connect steps with transitions and conditional branches.</li>
+                <li>Use AI to suggest step descriptions, edge cases, and validation rules.</li>
+                <li>Review AI suggestions, accept or edit them, and lock the configuration.</li>
+                <li>Publish a versioned workflow that can be consumed by downstream services.</li>
+              </ol>
+              <div class="callout">
+                The AI never deploys changes automatically. It proposes structure and guardrails, but humans own the
+                final configuration and publishing step.
+              </div>
+            </div>
+            <div>
+              <h3>UX decisions</h3>
+              <ul>
+                <li>Multi‑pane layout: canvas on the left, step inspector on the right.</li>
+                <li>Inline AI suggestions surfaced as “smart hints” instead of modal interruptions.</li>
+                <li>Explicit “Review &amp; publish” step to reinforce human control.</li>
+                <li>Color‑coded branches to make conditional paths visually scannable.</li>
+                <li>Keyboard shortcuts for power users modeling large workflows.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Technical implementation -->
+        <section class="card">
+          <div class="section-label">Technical implementation</div>
+          <h2 class="section-title">System design &amp; data model</h2>
+          <p class="section-body">
+            The builder is implemented as a React application backed by an API that stores workflow definitions as
+            versioned, structured JSON. Each workflow is treated as configuration that downstream services can interpret,
+            rather than hard‑coded logic.
+          </p>
+
+          <div class="two-col">
+            <div>
+              <h3>Data model (simplified)</h3>
+              <div class="code-block">
+<pre>{
+  "workflowId": "onboarding_v3",
+  "name": "Customer Onboarding",
+  "version": 3,
+  "steps": [
+    {
+      "id": "intake",
+      "label": "Intake",
+      "type": "form",
+      "inputs": ["companyName", "contactEmail"],
+      "aiDescription": "Collect basic customer details to start onboarding."
+    },
+    {
+      "id": "review",
+      "label": "Review",
+      "type": "manual",
+      "assignedRole": "ops_reviewer",
+      "aiChecks": ["missing_fields", "inconsistent_data"]
+    }
+  ],
+  "transitions": [
+    { "from": "intake", "to": "review", "condition": "valid" },
+    { "from": "review", "to": "approved", "condition": "approved" }
+  ]
+}</pre>
+              </div>
+              <p class="section-body">
+                This structure keeps workflows readable, testable, and easy to diff between versions, while still being
+                flexible enough for complex branching logic.
+              </p>
+            </div>
+            <div>
+              <h3>Key implementation details</h3>
+              <ul>
+                <li>React for the canvas and step inspector, with a unidirectional data flow.</li>
+                <li>Central store for workflow state to keep the canvas and side panel in sync.</li>
+                <li>API endpoints for saving drafts, publishing versions, and retrieving history.</li>
+                <li>AI integration via a dedicated endpoint that receives partial workflow context.</li>
+                <li>Server‑side validation to ensure AI suggestions never break schema contracts.</li>
+              </ul>
+              <h3>AI interaction pattern</h3>
+              <p class="section-body">
+                The AI receives the current workflow structure and the user’s intent (e.g., “suggest edge cases for this
+                approval step”) and returns structured suggestions that the UI renders as editable hints, not final
+                configuration.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Outcomes -->
+        <section class="card">
+          <div class="section-label">Impact</div>
+          <h2 class="section-title">Outcomes &amp; what this demonstrates</h2>
+          <p class="section-body">
+            While this project is framed as a portfolio case study, it mirrors the real constraints and expectations of
+            internal tools and workflow platforms used across modern software companies.
+          </p>
+
+          <div class="metrics-row">
+            <div class="metric">
+              <div class="metric-label">Modeling speed</div>
+              <div class="metric-value">~40% faster</div>
+              <div class="metric-note">AI‑assisted step suggestions reduce time spent drafting workflows.</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Error reduction</div>
+              <div class="metric-value">Fewer edge‑case gaps</div>
+              <div class="metric-note">AI highlights missing branches and validation rules before publishing.</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Engineering effort</div>
+              <div class="metric-value">Config over code</div>
+              <div class="metric-note">Workflows become versioned configuration instead of scattered logic.</div>
+            </div>
+          </div>
+
+          <h3 style="margin-top:14px;">What this project shows about my work</h3>
+          <ul>
+            <li>Ability to design workflow‑driven, data‑rich interfaces for technical users.</li>
+            <li>Comfort integrating AI in a human‑in‑the‑loop, safety‑conscious way.</li>
+            <li>Experience modeling systems as configuration with clear data contracts.</li>
+            <li>Full‑stack thinking: from UX and interaction patterns to API and data design.</li>
+          </ul>
+        </section>
+
+        <!-- Gallery / future work -->
+        <section class="card">
+          <div class="section-label">Screens &amp; evolution</div>
+          <h2 class="section-title">Screenshots, diagrams &amp; next steps</h2>
+          <p class="section-body">
+            This section is a placeholder for visual artifacts. As you build out the project, you can replace these
+            blocks with real screenshots, flow diagrams, and short clips of the workflow builder in action.
+          </p>
+
+          <div class="gallery">
+            <div class="gallery-item">
+              <div class="gallery-label">Canvas view</div>
+              <div>Workflow canvas with steps, branches, and a right‑hand inspector for configuration.</div>
+            </div>
+            <div class="gallery-item">
+              <div class="gallery-label">AI suggestions</div>
+              <div>Inline hints for step descriptions, edge cases, and validation rules.</div>
+            </div>
+            <div class="gallery-item">
+              <div class="gallery-label">Publish flow</div>
+              <div>Version review screen showing diffs between workflow versions before publishing.</div>
+            </div>
+          </div>
+
+          <h3 style="margin-top:16px;">Future enhancements</h3>
+          <ul>
+            <li>Role‑based access control for editing vs. viewing workflows.</li>
+            <li>Simulation mode to “run” a workflow with sample data before deployment.</li>
+            <li>Exportable JSON schema and API docs for engineering teams.</li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span>© <span id="year"></span> Gabrielle Gamboa</span>
+        <span>Back to <a href="index.html">portfolio home</a></span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Simple dynamic year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
