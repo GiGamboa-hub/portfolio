@@ -99,16 +99,58 @@
       color: #ffffff;
       box-shadow: 0 10px 30px rgba(79, 70, 229, 0.35);
     }
-
+    /* Show menu on hover */
+.nav-inner:hover + #menuOverlay,
+.nav-inner:hover + #menuOverlay + #portfolioMenu {
+  display: block;
+  right: 0;
+}
     .nav-links a.primary-link:hover {
       background: #4f46e5;
     }
 
-    .portfolio-menu {
-      padding: 32px; /* adds clean spacing inside the panel */
-      overflow-y: auto; /*ensures long menus scroll instead of cutting off */
+  .portfolio-menu {
+  position: fixed;
+  top: 0;
+  right: -340px; /* hidden off-screen */
+  width: 340px;
+  height: 100vh;
+  background: #fff;
+  padding: 32px;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+  transition: right 0.3s ease;
+  overflow-y: auto;
+  display: block; /* needed for hover behavior */
 }
 
+    
+    
+  .explore-btn {
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  box-shadow: 0 10px 30px rgba(79, 70, 229, 0.35);
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.explore-btn:hover {
+  background: #4f46e5;
+}
+
+ .menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+}
+    
 .menu-title {
   margin-bottom: 20px;
 }
