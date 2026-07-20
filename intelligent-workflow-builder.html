@@ -75,6 +75,14 @@
       color: var(--muted);
     }
 
+    .nav-wrapper:hover .menu-overlay {
+      display: block;
+    }
+
+    .nav-wrapper:hover .portfolio-menu {
+      right: 0;
+    }
+
     .nav-links {
       display: flex;
       gap: 18px;
@@ -100,11 +108,11 @@
       box-shadow: 0 10px 30px rgba(79, 70, 229, 0.35);
     }
     /* Show menu on hover */
-.nav-inner:hover + #menuOverlay,
-.nav-inner:hover + #menuOverlay + #portfolioMenu {
-  display: block;
-  right: 0;
-}
+  .nav-inner:hover + #menuOverlay,
+  .nav-inner:hover + #menuOverlay + #portfolioMenu {
+    display: block;
+    right: 0;
+    }
     .nav-links a.primary-link:hover {
       background: #4f46e5;
     }
@@ -121,9 +129,7 @@
   transition: right 0.3s ease;
   overflow-y: auto;
   display: block; /* needed for hover behavior */
-}
-
-    
+  }    
     
   .explore-btn {
   background: var(--accent);
@@ -515,17 +521,16 @@
   </style>
 </head>
 <body>
-  <div class="page-shell">
+  <div class="nav-wrapper">
     <!-- Top navigation: adjust links to match your portfolio -->
     <header class="nav">
       <div class="nav-inner">
         <div class="nav-brand">Gabrielle Gamboa · Portfolio</div>
-        <button id="menuButton" class="explore-btn">Explore Portfolio</button> 
+        <button class="explore-btn">Explore Portfolio</button> 
       </div>
     </header>
 
   <div id="menuOverlay" class="menu-overlay"></div>
-
   <div id="portfolioMenu" class="portfolio-menu">
     <div class="menu-title">
         <h2>Portfolio Explorer</h2>
