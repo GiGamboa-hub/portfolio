@@ -108,28 +108,31 @@
       box-shadow: 0 10px 30px rgba(79, 70, 229, 0.35);
     }
     /* Show menu on hover */
-  .nav-inner:hover + #menuOverlay,
-  .nav-inner:hover + #menuOverlay + #portfolioMenu {
+   .nav-inner:hover ~ .menu-overlay {
     display: block;
+    }
+
+    .nav-inner:hover ~ .portfolio-menu {
     right: 0;
     }
+
     .nav-links a.primary-link:hover {
       background: #4f46e5;
     }
 
-  .portfolio-menu {
-  position: fixed;
-  top: 0;
-  right: -340px; /* hidden off-screen */
-  width: 340px;
-  height: 100vh;
-  background: #fff;
-  padding: 32px;
-  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-  transition: right 0.3s ease;
-  overflow-y: auto;
-  display: block; /* needed for hover behavior */
-  }    
+    .portfolio-menu {
+      position: fixed;
+      top: 0;
+      right: -340px; /* hidden off-screen */
+      width: 340px;
+      height: 100vh;
+      background: #fff;
+      padding: 32px;
+      box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      overflow-y: auto;
+      display: block; /* needed for hover behavior */
+      }    
     
   .explore-btn {
   background: var(--accent);
@@ -521,18 +524,19 @@
   </style>
 </head>
 <body>
+  <!-- This wrapper should only contain nav and menu -->
   <div class="nav-wrapper">
     <!-- Top navigation: adjust links to match your portfolio -->
     <header class="nav">
       <div class="nav-inner">
-        <div class="nav-brand">Gabrielle Gamboa · Portfolio testing</div>
+        <div class="nav-brand">Gabrielle Gamboa · Portfolio testing1</div>
         <button class="explore-btn">Explore Portfolio</button> 
       </div>
     </header>
 
   <div id="menuOverlay" class="menu-overlay"></div>
   <div id="portfolioMenu" class="portfolio-menu">
-    
+    <!-- menu content -->
     <div class="menu-group">
         <h3>Projects</h3>        
         <a href="./light_mode.html">Light Mode</a>
@@ -546,8 +550,9 @@
         <a href="mailto:gigi.1818up@gmail.com">Contact</a>
     </div>
   </div>
-    
-  <div class-"page-shell">
+
+  <!-- Main page content must be outside nav-wrapper -->  
+  <div class="page-shell">
     <main>
       <article class="content">
         <!-- Hero / summary -->
